@@ -20,7 +20,7 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var navBar: UIToolbar!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var pickerImageView: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +28,33 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     
-    @IBAction func pickAnImage(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        self.present(pickerController, animated: true, completion: nil)
+    // MARK: UIImagePickerController Functions
+    
+    @IBAction func pickAnImageFromAlbum(_ sender: AnyObject) {
+        //To pick an image from Photos Albums
+        presentImagePickerWith(sourceType: UIImagePickerControllerSourceType.photoLibrary)
+    }
+    
+    
+    @IBAction func pickAnImageFromCamera (sender: AnyObject) {
+        // To take a image directly from camera
+        presentImagePickerWith(sourceType: UIImagePickerControllerSourceType.camera)
+    }
+    
+    
+    // MARK: UIImagePickerController Delegates
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        // To select an image and set it to imageView
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            imagePickerView.image = image
+            self.view.layoutIfNeeded()
+            setZoomScaleForImage(scrollViewSize: scrollView.bounds.size)
+            scrollView.zoomScale = scrollView.minimumZoomScale
+            centerImage()
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 

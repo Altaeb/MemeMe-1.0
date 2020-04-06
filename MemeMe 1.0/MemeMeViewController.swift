@@ -25,6 +25,9 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            //To enable or disable camera bar button if camera is available for use or not
+            cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)
+            
             // Do any additional setup after loading the view, typically from a nib.
             
             setTextFields(textField: topTextField, string: AppModel.defaultTopTextFieldText)
@@ -105,7 +108,8 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         func subscribeToKeyboardNotifications() {
             
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
             
         }
         
@@ -117,20 +121,21 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         
         // MARK: Keyboard Related Methods and Delegates
-    @objc func keyboardWillShow(_ notification:Notification) {
-
+        @objc func keyboardWillShow(_ notification:Notification) {
+            if (bottomTextField.isEditing){
             view.frame.origin.y -= getKeyboardHeight(notification)
+            }
         }
 
         func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-
             let userInfo = notification.userInfo
-            let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+            let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
             return keyboardSize.cgRectValue.height
-            }
- 
-
-
+        }
+    
+        @objc func keyboardWillHide(_ notification:Notification) {
+            view.frame.origin.y = 0
+        }
 
         
         // MARK: Generating Meme Objects

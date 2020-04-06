@@ -29,7 +29,7 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
             
             setTextFields(textField: topTextField, string: AppModel.defaultTopTextFieldText)
             setTextFields(textField: bottomTextField, string: AppModel.defaultBottomTextFieldText)
-
+            chickShareButton()
         }
 
 
@@ -47,15 +47,11 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
             }
             
             // if there's an image in the imageView, enable the share button
-            if let _ = imagePickerView.image {
-                shareButton.isEnabled = true
-            } else {
-                shareButton.isEnabled = false
-            }
+            chickShareButton()
             
             //To enable or disable camera bar button if camera is available for use or not
             cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)
-            
+           
             // Subscribe to keyboard notifications to allow the view to raise when necessary
             self.subscribeToKeyboardNotifications()
         }
@@ -116,6 +112,7 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
                
             NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
             NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+
         }
         
  
@@ -238,9 +235,17 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
             navBar.isHidden = hidden
             toolBar.isHidden = hidden
         }
-        
+    
+        func chickShareButton() {
+            if let _ = imagePickerView.image {
+                shareButton.isEnabled = true
+            } else {
+                shareButton.isEnabled = false
+         }
+        }
         
         override var prefersStatusBarHidden: Bool {
+            chickShareButton()
             //Hide Status Bar
             return true
         }

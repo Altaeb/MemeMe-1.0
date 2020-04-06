@@ -25,13 +25,11 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            //To enable or disable camera bar button if camera is available for use or not
-            cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)
-            
             // Do any additional setup after loading the view, typically from a nib.
             
             setTextFields(textField: topTextField, string: AppModel.defaultTopTextFieldText)
             setTextFields(textField: bottomTextField, string: AppModel.defaultBottomTextFieldText)
+
         }
 
 
@@ -115,11 +113,12 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         
         func unsubscribeFromKeyboardNotifications() {
-            
+               
             NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         }
         
-        
+ 
         // MARK: Keyboard Related Methods and Delegates
         @objc func keyboardWillShow(_ notification:Notification) {
             if (bottomTextField.isEditing){
@@ -137,7 +136,7 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
             view.frame.origin.y = 0
         }
 
-        
+
         // MARK: Generating Meme Objects
         
         // Create a UIImage that combines the Image View and the Textfields
@@ -336,5 +335,4 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
                 textField.text = AppModel.defaultBottomTextFieldText;
             }
         }
-}
-
+    }

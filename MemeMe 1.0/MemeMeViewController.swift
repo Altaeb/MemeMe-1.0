@@ -19,7 +19,7 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var navBar: UIToolbar!
     @IBOutlet weak var toolBar: UIToolbar!
-    @IBOutlet weak var scrollView: UIScrollView!
+
     
    //MARK: LifeCycle Methods
         
@@ -29,8 +29,6 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
             
             setTextFields(textField: topTextField, string: AppModel.defaultTopTextFieldText)
             setTextFields(textField: bottomTextField, string: AppModel.defaultBottomTextFieldText)
-            scrollView.delegate = self;
-            scrollView.backgroundColor = UIColor.black
         }
 
 
@@ -91,9 +89,6 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
                 
                 imagePickerView.image = image
                 self.view.layoutIfNeeded()
-                setZoomScaleForImage(scrollViewSize: scrollView.bounds.size)
-                scrollView.zoomScale = scrollView.minimumZoomScale
-                centerImage()
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -218,22 +213,6 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         //MARK: Helper Functions
         
-        override func viewWillLayoutSubviews() {
-            
-            self.view.layoutIfNeeded()
-            
-            setZoomScaleForImage(scrollViewSize: scrollView.bounds.size)
-            
-            if scrollView.zoomScale < scrollView.minimumZoomScale || scrollView.zoomScale == 1{
-                
-                scrollView.zoomScale = scrollView.minimumZoomScale
-            }
-            
-            centerImage()
-            
-        }
-        
-        
     func presentImagePickerWith(sourceType: UIImagePickerController.SourceType){
             
             let imagePicker = UIImagePickerController()
@@ -352,59 +331,5 @@ class MemeMeViewController: UIViewController, UIImagePickerControllerDelegate, U
                 textField.text = AppModel.defaultBottomTextFieldText;
             }
         }
-    }
+}
 
-
-    extension MemeMeViewController: UIScrollViewDelegate {
-        
-        //MARK: UIScrollView Extention
-        
-        func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-            
-           return imagePickerView
-        }
-        
-        
-        func scrollViewDidZoom(_ scrollView: UIScrollView) {
-            
-            centerImage()
-        }
-        
-        
-        //MARK: Set Zoom Scale
-        
-        func setZoomScaleForImage(scrollViewSize: CGSize) {
-            
-            if let image = imagePickerView.image {
-                
-                let imageSize = image.size
-                
-                let widthScale = scrollViewSize.width / imageSize.width
-                let heightScale = scrollViewSize.height / imageSize.height
-                
-                //this will help for both potrait and landscape oriented images
-                let minScale = min(widthScale, heightScale)
-                
-                scrollView.minimumZoomScale = minScale
-                scrollView.maximumZoomScale = 3.0
-            }
-        }
-        
-        
-        //MARK: Center Image
-        
-        func centerImage() {
-            
-            if imagePickerView.image != nil {
-                
-                let scrollViewSize = scrollView.bounds.size
-                let imageSize = imagePickerView.frame.size
-                
-                let horizontalSpace = imageSize.width < scrollViewSize.width ? (scrollViewSize.width - imageSize.width) / 2 : 0
-                let verticalSpace = imageSize.height < scrollViewSize.height ? (scrollViewSize.height - imageSize.height) / 2 : 0
-                
-                scrollView.contentInset = UIEdgeInsets(top: verticalSpace, left: horizontalSpace, bottom: verticalSpace, right: horizontalSpace)
-            }
-        }
-
-    }

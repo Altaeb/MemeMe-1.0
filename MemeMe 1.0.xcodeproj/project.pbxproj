@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B6172AF4243BB05B0070566A /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6172AF3243BB0090070566A /* Impact.ttf */; };
 		B687DD2A243A059D00C8E6E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B687DD29243A059D00C8E6E7 /* AppDelegate.swift */; };
 		B687DD2C243A059D00C8E6E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B687DD2B243A059D00C8E6E7 /* SceneDelegate.swift */; };
 		B687DD2E243A059D00C8E6E7 /* MemeMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B687DD2D243A059D00C8E6E7 /* MemeMeViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B6172AF3243BB0090070566A /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
 		B687DD26243A059D00C8E6E7 /* MemeMe 1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MemeMe 1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B687DD29243A059D00C8E6E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B687DD2B243A059D00C8E6E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				B6CEBF38243A60E4007F0441 /* Meme.swift */,
 				B6CEBF3A243A618E007F0441 /* AppModel.swift */,
 				B6CEBF3C243A6C0E007F0441 /* FontsTableViewController.swift */,
+				B6172AF3243BB0090070566A /* Impact.ttf */,
 			);
 			path = "MemeMe 1.0";
 			sourceTree = "<group>";
@@ -134,6 +137,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6172AF4243BB05B0070566A /* Impact.ttf in Resources */,
 				B687DD36243A05A000C8E6E7 /* LaunchScreen.storyboard in Resources */,
 				B687DD33243A05A000C8E6E7 /* Assets.xcassets in Resources */,
 				B687DD31243A059D00C8E6E7 /* Main.storyboard in Resources */,
